@@ -1,4 +1,6 @@
-add_subdirectory( example )
+if(BUILD_EXAMPLES)
+  add_subdirectory( example )
+endif()
 
 file( GLOB sources "[a-zA-Z]*.cpp" )
 
@@ -23,21 +25,11 @@ set_target_properties(
 target_compile_options(
   parsco
   PRIVATE
-  # clang
-  $<$<CXX_COMPILER_ID:Clang>:
-     -Wall
-     -Wextra
-   >
-  # gcc
-  $<$<CXX_COMPILER_ID:GNU>:
-      -Wall
-      -Wextra
-      -fcoroutines
-   >
+  -Wall
+  -Wextra
 )
 
 target_include_directories(
-  parsco
-  PUBLIC
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/
+  parsco PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/include>
+                $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )

@@ -47,29 +47,10 @@
 #  define __cpp_impl_coroutine 1
 #endif
 
-/****************************************************************
-** Fix header inconsistency.
-*****************************************************************/
-// FIXME: remove this when libc++ moves the coroutine library out
-// of experimental.
-#if defined( _LIBCPP_VERSION )
-#  include <experimental/coroutine> // libc++
-#else
-#  include <coroutine> // libstdc++
-#endif
 
-/****************************************************************
-** Fix namespace inconsistency.
-*****************************************************************/
-// FIXME: remove this when libc++ moves the coroutine library out
-// of experimental.
-#if defined( _LIBCPP_VERSION )
-#  define CORO_NS std::experimental // libc++
-#else
-#  define CORO_NS std // libstdc++
-#endif
+#include <coroutine>
 
-namespace coro = ::CORO_NS;
+namespace coro = ::std;
 
 /****************************************************************
 ** Fix coroutine_handle::from_address not being noexcept.

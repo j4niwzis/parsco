@@ -17,49 +17,22 @@ set_target_properties( hello-world-parser PROPERTIES CXX_EXTENSIONS OFF )
 target_compile_options(
   json-parser
   PRIVATE
-  # clang
-  $<$<CXX_COMPILER_ID:Clang>:
-     -Wall
-     -Wextra
-   >
-  # gcc
-  $<$<CXX_COMPILER_ID:GNU>:
-      -Wall
-      -Wextra
-      -fcoroutines
-   >
+  -Wall
+  -Wextra
 )
 
 target_compile_options(
   ip-address-parser
   PRIVATE
-  # clang
-  $<$<CXX_COMPILER_ID:Clang>:
-     -Wall
-     -Wextra
-   >
-  # gcc
-  $<$<CXX_COMPILER_ID:GNU>:
-      -Wall
-      -Wextra
-      -fcoroutines
-   >
+  -Wall
+  -Wextra
 )
 
 target_compile_options(
   hello-world-parser
   PRIVATE
-  # clang
-  $<$<CXX_COMPILER_ID:Clang>:
-     -Wall
-     -Wextra
-   >
-  # gcc
-  $<$<CXX_COMPILER_ID:GNU>:
-      -Wall
-      -Wextra
-      -fcoroutines
-   >
+  -Wall
+  -Wextra
 )
 
 target_include_directories(
