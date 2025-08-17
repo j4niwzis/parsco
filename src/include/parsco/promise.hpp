@@ -118,7 +118,7 @@ struct promise_type
   // Ensure that this is not copyable. See
   // https://devblogs.microsoft.com/oldnewthing/20210504-00/?p=105176
   // for the arcane reason as to why.
-  promise_type( promise_type const& ) = delete;
+  promise_type( promise_type const& )   = delete;
   void operator=( promise_type const& ) = delete;
 
   auto get_return_object() { return parser<T>( this ); }
@@ -256,6 +256,14 @@ struct promise_type
     return awaitable{ this };
   }
 
+  struct builtin_awaitable_get_consumed : coro::suspend_never {
+    std::optional<int> consumed_;
+    int await_resume() noexcept { return consumed_.value(); }
+  };
+  builtin_awaitable_get_consumed await_transform(
+      builtin_awaitable_get_consumed ) noexcept {
+    return { .consumed_ = consumed_ };
+  }
   struct builtin_awaitable {
     promise_type*                     p_;
     std::optional<BuiltinParseResult> res_;
